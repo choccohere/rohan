@@ -2,256 +2,70 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Meal Maker</title>
-    <style>
-        /* Global Styles */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #111;
-            color: #fff;
-            overflow-x: hidden;
-            transition: background-color 0.3s ease;
-        }
-        h1, h2, h3 {
-            font-family: 'Arial', sans-serif;
-            color: #00f7ff;
-            text-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
-            margin-bottom: 10px;
-        }
-
-        /* Navigation Bar */
-        .menu-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 15px;
-            text-align: center;
-            z-index: 1000;
-            transition: background-color 0.3s ease;
-        }
-        .menu-bar a {
-            color: #fff;
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 18px;
-            transition: color 0.3s ease;
-        }
-        .menu-bar a:hover {
-            color: #ff00ff;
-        }
-
-        /* Section Styling */
-        .section {
-            padding: 60px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            opacity: 0;
-            animation: fadeIn 1s forwards;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* Meal Items - Flexbox Layout for Horizontal View */
-        .meal-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 20px;
-        }
-
-        .meal-item {
-            background: #222;
-            border-radius: 10px;
-            position: relative;
-            width: calc(33.33% - 20px); /* 3 items per row, with space between */
-            padding-top: 100%; /* This makes the box square */
-            overflow: hidden;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-            transition: transform 0.3s ease-in-out;
-            cursor: pointer;
-        }
-
-        .meal-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 40px rgba(255, 0, 255, 0.5);
-        }
-
-        .meal-item img {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            max-width: 80%;
-            max-height: 80%;
-            border-radius: 8px;
-            transition: transform 0.3s ease;
-        }
-
-        .meal-item:hover img {
-            transform: translate(-50%, -50%) scale(1.1);
-        }
-
-        .meal-description {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.7);
-            color: #00f7ff;
-            width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-            text-align: center;
-        }
-
-        .meal-item:hover .meal-description {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* Meal Generator Section */
-        #mealGenerator {
-            text-align: center;
-            padding: 60px 0;
-        }
-
-        #generateBtn {
-            padding: 15px 30px;
-            background-color: #ff00ff;
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 18px;
-            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        #generateBtn:hover {
-            background-color: #ff3399;
-            box-shadow: 0 0 25px rgba(255, 51, 153, 0.6);
-        }
-
-        #generatedMeal img {
-            max-width: 250px;
-            border-radius: 12px;
-            margin-top: 20px;
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
-        }
-
-        /* Responsive Layout */
-        @media (max-width: 768px) {
-            .meal-item {
-                width: calc(50% - 20px); /* 2 items per row on smaller screens */
-            }
-        }
-
-        @media (max-width: 480px) {
-            .meal-item {
-                width: 100%; /* 1 item per row on very small screens */
-            }
-        }
-    </style>
+    <title>Fork Cast</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <header>
+        <h1>Fork Cast</h1>
+        <nav>
+            <button onclick="showSection('vegan')">Vegan</button>
+            <button onclick="showSection('vegetarian')">Vegetarian</button>
+            <button onclick="showSection('nonveg')">Non-Vegetarian</button>
+        </nav>
+    </header>
 
-    <div class="menu-bar">
-        <a href="#veganSection">Vegan</a>
-        <a href="#nonVeganSection">Non-Vegan</a>
-        <a href="#vegetarianSection">Vegetarian</a>
-        <a href="#mealGenerator">Meal Generator</a>
-    </div>
+    <main>
+        <section id="vegan" class="category">
+            <h2>Vegan</h2>
+            <p>Plant-based meals, no animal products.</p>
+            <ul>
+                <li>Tofu Stir Fry</li>
+                <li>Quinoa Salad</li>
+                <li>Vegan Smoothies</li>
+            </ul>
+        </section>
 
-    <h1>Simple Meal Maker</h1>
+        <section id="vegetarian" class="category hidden">
+            <h2>Vegetarian</h2>
+            <p>No meat, may include dairy or eggs.</p>
+            <ul>
+                <li>Paneer Butter Masala</li>
+                <li>Vegetable Biryani</li>
+                <li>Egg Curry</li>
+            </ul>
+        </section>
 
-    <!-- Vegan Meals Section -->
-    <div class="section" id="veganSection">
-        <h2>🥗 Vegan Meals</h2>
-        <div id="veganSectionContent" class="meal-container"></div>
-    </div>
+        <section id="nonveg" class="category hidden">
+            <h2>Non-Vegetarian</h2>
+            <p>Includes meat, fish, poultry.</p>
+            <ul>
+                <li>Chicken Tikka</li>
+                <li>Grilled Fish</li>
+                <li>Lamb Curry</li>
+            </ul>
+        </section>
 
-    <!-- Non-Vegan Meals Section -->
-    <div class="section" id="nonVeganSection">
-        <h2>🍗 Non-Vegan Meals</h2>
-        <div id="nonVeganSectionContent" class="meal-container"></div>
-    </div>
+        <section id="triangle">
+            <h2>Food Triangle</h2>
+            <img src="food-trianlge.gif" alt="Food Triangle" class="responsive-img">
+        </section>
 
-    <!-- Vegetarian Meals Section -->
-    <div class="section" id="vegetarianSection">
-        <h2>🧀 Pure Vegetarian Meals</h2>
-        <div id="vegetarianSectionContent" class="meal-container"></div>
-    </div>
+        <section id="diet-chart">
+            <h2>Diet Chart</h2>
+            <table>
+                <tr><th>Meal</th><th>Vegan</th><th>Vegetarian</th><th>Non-Veg</th></tr>
+                <tr><td>Breakfast</td><td>Oatmeal</td><td>Milk + Cereal</td><td>Eggs + Toast</td></tr>
+                <tr><td>Lunch</td><td>Quinoa Bowl</td><td>Veg Curry + Rice</td><td>Chicken Curry + Rice</td></tr>
+                <tr><td>Dinner</td><td>Veg Stir Fry</td><td>Paneer + Chapati</td><td>Fish + Salad</td></tr>
+            </table>
+        </section>
+    </main>
 
-    <!-- Meal Generator Section -->
-    <div class="section" id="mealGenerator">
-        <h2>🍽️ Meal Generator</h2>
-        <button id="generateBtn">Generate a Random Meal</button>
-        <div id="generatedMeal"></div>
-    </div>
+    <footer>
+        <p>&copy; 2025 Fork Cast. All rights reserved.</p>
+    </footer>
 
-    <script>
-        // Meal data and rendering functions
-        const meals = {
-            vegan: [
-                { name: "Vegan Buddha Bowl", image: "https://cdn.pixabay.com/photo/2017/06/02/18/24/food-2367853_1280.jpg", wiki: "https://en.wikipedia.org/wiki/Veganism", description: "A nourishing bowl filled with grains, fresh vegetables, and flavorful dressings." },
-                { name: "Vegan Tofu Stir Fry", image: "https://cdn.pixabay.com/photo/2019/05/27/08/06/vegan-4233365_1280.jpg", wiki: "https://en.wikipedia.org/wiki/Tofu", description: "Stir-fried tofu with a mix of colorful veggies in a savory sauce." },
-                { name: "Vegan Lentil Soup", image: "https://cdn.pixabay.com/photo/2020/03/08/17/08/soup-4911952_1280.jpg", wiki: "https://en.wikipedia.org/wiki/Lentil_soup", description: "A hearty and nutritious soup made with lentils and vegetables." }
-            ],
-            "non-vegan": [
-                { name: "Grilled Chicken Meal", image: "https://cdn.pixabay.com/photo/2017/06/02/18/24/chicken-2367814_1280.jpg", wiki: "https://en.wikipedia.org/wiki/Meat", description: "Grilled chicken served with vegetables and rice." },
-                { name: "Beef Steak", image: "https://cdn.pixabay.com/photo/2016/11/18/15/03/beef-1834644_1280.jpg", wiki: "https://en.wikipedia.org/wiki/Beefsteak", description: "A juicy beef steak grilled to perfection." },
-                { name: "Shrimp Pasta", image: "https://cdn.pixabay.com/photo/2016/03/05/20/02/pasta-1238647_1280.jpg", wiki: "https://en.wikipedia.org/wiki/Shrimp", description: "Shrimp tossed with pasta in a rich, creamy sauce." }
-            ],
-            vegetarian: [
-                { name: "Paneer Tikka", image: "https://cdn.pixabay.com/photo/2022/06/13/13/09/paneer-7259252_1280.jpg", wiki: "https://en.wikipedia.org/wiki/Vegetarianism", description: "Cubes of paneer marinated in spices and grilled to perfection." },
-                { name: "Vegetable Pulao", image: "https://cdn.pixabay.com/photo/2020/02/06/18/34/rice-4825268_1280.jpg", wiki: "https://en.wikipedia.org/wiki/Pulao", description: "A fragrant rice dish made with mixed vegetables and mild spices." },
-                { name: "Rajma Chawal", image: "https://cdn.pixabay.com/photo/2021/02/14/11/21/rajma-6011712_1280.jpg", wiki: "https://en.wikipedia.org/wiki/Rajma", description: "A comforting dish of kidney beans cooked in a flavorful gravy, served with rice." }
-            ]
-        };
-
-        function renderMeals(type, containerId) {
-            const container = document.getElementById(containerId);
-            meals[type].forEach(meal => {
-                const div = document.createElement('div');
-                div.className = 'meal-item';
-                div.innerHTML = `
-                    <img src="${meal.image}" alt="${meal.name}">
-                    <div class="meal-description">
-                        <h3>${meal.name}</h3>
-                        <p>${meal.description}</p>
-                        <a href="${meal.wiki}" target="_blank">Learn more</a>
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        renderMeals('vegan', 'veganSectionContent');
-        renderMeals('non-vegan', 'nonVeganSectionContent');
-        renderMeals('vegetarian', 'vegetarianSectionContent');
-
-        document.getElementById('generateBtn').addEventListener('click', () => {
-            const allMeals = [...meals.vegan, ...meals["non-vegan"], ...meals.vegetarian];
-            const randomMeal = allMeals[Math.floor(Math.random() * allMeals.length)];
-            const display = document.getElementById('generatedMeal');
-            display.innerHTML = `
-                <h3>${randomMeal.name}</h3>
-                <img src="${randomMeal.image}" alt="${randomMeal.name}" style="max-width: 250px; border-radius: 10px;">
-                <p>${randomMeal.description}</p>
-                <a href="${randomMeal.wiki}" target="_blank">Learn more on Wikipedia</a>
-            `;
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
